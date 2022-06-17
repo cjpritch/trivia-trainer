@@ -1,6 +1,11 @@
+//
+// these two will be the information coming back from the dropdowns
 var questionNumber = 10
-var questionCategory
+var questionCategory = "general"
 
+// create variables to be used below
+var question
+var answer
 
 var questionRequest = function() {
 
@@ -10,18 +15,56 @@ var questionRequest = function() {
     // generate a random positive or negative number
     var plusOrMinus = (Math.random() - 0.5) * 2
 
-    //if number is positive use API-Ninja if negative use Jservice
+    //if number is positive use API-Ninja if negative use OpenTDB
 
     if(plusOrMinus>0) {
-        //API-Ninja request
-        console.log("APININJA")
+
+        //API-Ninja request  
+
+        $.ajax({
+        method: 'GET',
+        url: 'https://api.api-ninjas.com/v1/trivia?category=' + questionCategory,
+        headers: { 'X-Api-Key': 'XcAWug1QbeEZJbZVbAue5Q==DQVhnSjAbT4PKToj'},
+        contentType: 'application/json',
+        success: function(result) {       
+        question = (result[0].question)
+        answer = (result[0].answer)  
+        // we'll need to call the function to display the question here passing question and answer into it as arguments
+
+
+        console.log("Question: " + question)
+        console.log("Answer: " + answer)    
+         
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+});
        
     }else {
-        // JService request
-        console.log("Jservice")
-    }
-    
- }   
+
+    // openTDB request
+
+     var openTDBRequest = fetch("https://opentdb.com/api.php?amount=1").then(function(openTDBRequest){
+        openTDBRequest.json().then(function(data){
+        question = (data.results[0].question)
+        answer = (data.results[0].correct_answer)
+         // we'll need to call the function to display the question here passing question and answer into it as arguments
+
+        console.log("Question: " + question)
+        console.log("Answer: " + answer)        
+        })
+        .catch(function(error) {
+            console.log("Houston we have a problem")
+        })
+    });
+                            
+     };
+  
 }
+   
+ }   
+
 
 questionRequest()
+$('.dropdown-trigger').dropdown();
