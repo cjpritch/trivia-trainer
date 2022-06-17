@@ -1,12 +1,12 @@
 //
-// these two will be the information coming back from the dropdowns
+// these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
 var questionNumber = 50
+var questionCategory = "music"
 
-var questionCategory = "artliterature"
-
-// create variables to be used below
+// create global variables to be used below
 var question
 var answer
+var categoryCounter
 
 var questionRequest = function() {
 
@@ -32,9 +32,9 @@ var questionRequest = function() {
         answer = (result[0].answer)  
         // we'll need to call the function to display the question here passing question and answer into it as arguments
 
-        // console.log("NINJA")
-        // console.log("Question: " + question)
-        // console.log("Answer: " + answer)    
+        console.log("NINJA")
+        console.log("Question: " + question)
+        console.log("Answer: " + answer)    
          
         },
         error: function ajaxError(jqXHR) {
@@ -43,107 +43,87 @@ var questionRequest = function() {
 });
        
     }else {
+    // convert NinjaAPI category query values to OpenTDB query values
+    categoryConverter(questionCategory)    
 
     // openTDB request
-
-     var openTDBRequest = fetch("https://opentdb.com/api.php?amount=1").then(function(openTDBRequest){
+     var openTDBRequest = fetch("https://opentdb.com/api.php?amount=1&category="+categoryCounter).then(function(openTDBRequest){
         openTDBRequest.json().then(function(data){
         question = (data.results[0].question)
         answer = (data.results[0].correct_answer)
         
     // add text to T/F questions
         if(answer == "True" || answer == "False"){
-            question = "True or False? " + question
-        }
+            question = "True or False? " + question        }
     
-         // we'll need to call the function to display the question here passing question and answer into it as arguments
-        // console.log("OpenTDB")
-        // console.log("Question: " + question)
-        // console.log("Answer: " + answer)    
-        
-        categoryConverter(questionCategory)
-            
-            
+        // we'll need to call the function to display the question here passing question and answer into it as arguments
 
-         })
-        .catch(function(error) {
-            console.log("Houston we have a problem")
-            
+        console.log("OpenTDB")
+        console.log("Question: " + question)
+        console.log("Answer: " + answer)                         
         })
-    });
-                            
-     };
-  
-}
-   
+
+        .catch(function(error) {
+            console.log("Houston we have a problem")            
+        })
+    });                            
+   };  
+  }   
  }   
 
-   // convert NinjaAPI categories to OpenTDB categories
+   // this function converts NinjaAPI categories to OpenTDB categories
    var categoryConverter = function(questionCategory) {
     switch(questionCategory) {
     case "general":
-    questionCategory = "9"
-    console.log(questionCategory)
+    categoryCounter = "9"    
     break;
 
     case "artliterature":
-    questionCategory = "25"
-    console.log(questionCategory)
+    categoryCounter = "25"    
     break;
 
     case "language":
-    questionCategory = "10"
-    console.log(questionCategory)
+    categoryCounter = "10"
     break;
     
     case "sciencenature":
-    questionCategory = "17"
-    console.log(questionCategory)
+    categoryCounter = "17"
     break;
 
     case "peopleplaces":
-    questionCategory = "26"
-    console.log(questionCategory)
+    categoryCounter = "26"
     break;
 
     case "geography":
-    questionCategory = "22"
-    console.log(questionCategory)
+    categoryCounter = "22"
     break;
 
     case "historyholidays":
-    questionCategory = "23"
-    console.log(questionCategory)
+    categoryCounter = "23"
     break;
 
     case "entertainment":
-    questionCategory = "14"
-    console.log(questionCategory)
+    categoryCounter = "14"
     break;
 
     case "toysgames":
-    questionCategory = "16"
-    console.log(questionCategory)
+    categoryCounter = "16"
     break;
 
     case "music":
-    questionCategory = "12"
-    console.log(questionCategory)
+    categoryCounter = "12"
     break;
 
     case "religionmythology":
-    questionCategory = "20"
-    console.log(questionCategory)
+    categoryCounter = "20"
     break;
 
     case "sportsliesure":
-    questionCategory = "21"
-    console.log(questionCategory)
+    categoryCounter = "21"
     break;         
 
-    default: 
-    console.log(questionCategory)
-}}
-
-questionRequest()
+    default: console.log("Houston we have a problem")
+    };
+}
+    questionRequest()
 $('.dropdown-trigger').dropdown();
