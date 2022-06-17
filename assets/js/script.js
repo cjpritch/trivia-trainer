@@ -1,7 +1,8 @@
 //
 // these two will be the information coming back from the dropdowns
-var questionNumber = 10
-var questionCategory = "general"
+var questionNumber = 50
+
+var questionCategory = "artliterature"
 
 // create variables to be used below
 var question
@@ -28,9 +29,13 @@ var questionRequest = function() {
         contentType: 'application/json',
         success: function(result) {       
         question = (result[0].question)
-        answer = (result[0].answer)
-        console.log("Question: " + question)
-        console.log("Answer: " + answer)
+        answer = (result[0].answer)  
+        // we'll need to call the function to display the question here passing question and answer into it as arguments
+
+        // console.log("NINJA")
+        // console.log("Question: " + question)
+        // console.log("Answer: " + answer)    
+         
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
@@ -39,22 +44,106 @@ var questionRequest = function() {
        
     }else {
 
-        // openTDB request
-        var openTDBRequest = fetch("https://opentdb.com/api.php?amount=1").then(function(openTDBRequest){
-            openTDBRequest.json().then(function(data){
-                console.log(data.results[0].question)
-                console.log(data.results[0].correct_answer)
-            })
-        });
-       
+    // openTDB request
+
+     var openTDBRequest = fetch("https://opentdb.com/api.php?amount=1").then(function(openTDBRequest){
+        openTDBRequest.json().then(function(data){
+        question = (data.results[0].question)
+        answer = (data.results[0].correct_answer)
         
+    // add text to T/F questions
+        if(answer == "True" || answer == "False"){
+            question = "True or False? " + question
+        }
+    
+         // we'll need to call the function to display the question here passing question and answer into it as arguments
+        // console.log("OpenTDB")
+        // console.log("Question: " + question)
+        // console.log("Answer: " + answer)    
+        
+        categoryConverter(questionCategory)
+            
+            
 
-                        
-    };
-
-    }
-    // we'll need to call the function to display the question here passing question and answer into it as arguments
+         })
+        .catch(function(error) {
+            console.log("Houston we have a problem")
+            
+        })
+    });
+                            
+     };
+  
+}
+   
  }   
 
+   // convert NinjaAPI categories to OpenTDB categories
+   var categoryConverter = function(questionCategory) {
+    switch(questionCategory) {
+    case "general":
+    questionCategory = "9"
+    console.log(questionCategory)
+    break;
+
+    case "artliterature":
+    questionCategory = "25"
+    console.log(questionCategory)
+    break;
+
+    case "language":
+    questionCategory = "10"
+    console.log(questionCategory)
+    break;
+    
+    case "sciencenature":
+    questionCategory = "17"
+    console.log(questionCategory)
+    break;
+
+    case "peopleplaces":
+    questionCategory = "26"
+    console.log(questionCategory)
+    break;
+
+    case "geography":
+    questionCategory = "22"
+    console.log(questionCategory)
+    break;
+
+    case "historyholidays":
+    questionCategory = "23"
+    console.log(questionCategory)
+    break;
+
+    case "entertainment":
+    questionCategory = "14"
+    console.log(questionCategory)
+    break;
+
+    case "toysgames":
+    questionCategory = "16"
+    console.log(questionCategory)
+    break;
+
+    case "music":
+    questionCategory = "12"
+    console.log(questionCategory)
+    break;
+
+    case "religionmythology":
+    questionCategory = "20"
+    console.log(questionCategory)
+    break;
+
+    case "sportsliesure":
+    questionCategory = "21"
+    console.log(questionCategory)
+    break;         
+
+    default: 
+    console.log(questionCategory)
+}}
 
 questionRequest()
+$('.dropdown-trigger').dropdown();
