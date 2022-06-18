@@ -1,7 +1,7 @@
 //
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
-var questionNumber = 3
-var questionCategory = "music"
+var questionNumber = 50
+var questionCategory = "sciencenature"
 
 // create global variables to be used below
 var question
@@ -67,6 +67,16 @@ var questionRequest = function() {
             question = "True or False? " + question       
          }
 
+    //fix unicode formatting
+        answer = answer.replaceAll(/&quot;/g,"'")
+        question = question.replaceAll(/&quot;/g,"'")
+
+        answer = answer.replaceAll(/&amp;;/g,"&")
+        question = question.replaceAll(/&amp;;/g,"&")
+
+        answer = answer.replaceAll(/&#039;/g,"'")
+        question = question.replaceAll(/&#039;/g,"'")
+
     //send question to questionArray
         dataObj = {
             question: question,
@@ -94,7 +104,8 @@ var questionRequest = function() {
 
 console.log(questionArray)
 var test = function() {
-   {        console.log(questionArray[questionCounter])
+   {        console.log(questionArray[questionCounter].question)
+            console.log(questionArray[questionCounter].answer)
     }  
 }
 delayThis = setTimeout(test, 500);
