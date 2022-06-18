@@ -1,12 +1,14 @@
 //
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
-var questionNumber = 50
+var questionNumber = 3
 var questionCategory = "music"
 
 // create global variables to be used below
 var question
 var answer
 var categoryCounter
+var questionCounter = 0
+var questionArray = []
 
 var questionRequest = function() {
 
@@ -30,12 +32,19 @@ var questionRequest = function() {
         success: function(result) {       
         question = (result[0].question)
         answer = (result[0].answer)  
-        // we'll need to call the function to display the question here passing question and answer into it as arguments
 
-        console.log("NINJA")
-        console.log("Question: " + question)
-        console.log("Answer: " + answer)    
-         
+        //send question to questionArray
+        dataObj = {
+            question: question,
+            answer: answer
+        }    
+        
+        pushToArray(dataObj)     
+       
+        // console.log("NINJA")
+        // console.log("Question: " + question)
+        // console.log("Answer: " + answer)    
+                 
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
@@ -43,6 +52,7 @@ var questionRequest = function() {
 });
        
     }else {
+
     // convert NinjaAPI category query values to OpenTDB query values
     categoryConverter(questionCategory)    
 
@@ -54,22 +64,42 @@ var questionRequest = function() {
         
     // add text to T/F questions
         if(answer == "True" || answer == "False"){
-            question = "True or False? " + question        }
-    
-        // we'll need to call the function to display the question here passing question and answer into it as arguments
+            question = "True or False? " + question       
+         }
 
-        console.log("OpenTDB")
-        console.log("Question: " + question)
-        console.log("Answer: " + answer)                         
+    //send question to questionArray
+        dataObj = {
+            question: question,
+            answer: answer
+        }    
+        pushToArray(dataObj)       
+          
+        // console.log("OpenTDB")
+        // console.log("Question: " + question)
+        // console.log("Answer: " + answer)                         
         })
 
         .catch(function(error) {
             console.log("Houston we have a problem")            
         })
     });                            
-   };  
-  }   
- }   
+   };    
+  }  
+}   
+
+
+// we'll call the function to display the question here. I had to add a delay so that there is time
+// for the results to return and so that it's not looking at an empty array
+// we'll need to link this to a questionCounter 
+
+console.log(questionArray)
+var test = function() {
+   {        console.log(questionArray[questionCounter])
+    }  
+}
+delayThis = setTimeout(test, 500);
+
+
 
    // this function converts NinjaAPI categories to OpenTDB categories
    var categoryConverter = function(questionCategory) {
@@ -122,8 +152,14 @@ var questionRequest = function() {
     categoryCounter = "21"
     break;         
 
-    default: console.log("Houston we have a problem")
+    default: console.log("no category")
     };
 }
+
+var pushToArray = function(dataObj) {
+    questionArray.push(dataObj)
+
+}
     questionRequest()
+    console.log()
 $('.dropdown-trigger').dropdown();
