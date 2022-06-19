@@ -175,7 +175,9 @@ var pushToArray = function(dataObj) {
     console.log()
 
 // initialize dropdowns
-$('.dropdown-trigger').dropdown();
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 // initialize intructions 
 $(document).ready(function(){
