@@ -172,5 +172,24 @@ var pushToArray = function(dataObj) {
 
 }
     questionRequest()
+
+    var displayQuestions = function () {
+        question = questionArray[questionCounter].question
+        answer = questionArray[questionCounter].answer
+        $("#Q").text(question);
+        setTimeout(() => {
+            console.log("Delayed for 10 seconds.");
+            $("#A").text(answer);
+        }, "6000")
+    }
+    $("#startGame").on("click", function(){
+        displayQuestions();
+    });
+    $("#next").on("click", function () {
+        //remove previous question
+        $("#Q").text("");
+        $("#A").text("");
+        displayQuestions();
+    })
     console.log()
 $('.dropdown-trigger').dropdown();
