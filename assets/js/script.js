@@ -1,7 +1,7 @@
 //
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
-var questionNumber = 50
-var questionCategory = "sciencenature"
+var questionNumber 
+var questionCategory 
 
 // create global variables to be used below
 var question
@@ -10,7 +10,7 @@ var categoryCounter
 var questionCounter = 0
 var questionArray = []
 
-var questionRequest = function() {
+var questionRequest = function(questionCategory,questionNumber) {
 
     // loop through this function for each question
     for(i=0; i < questionNumber; i++){
@@ -102,75 +102,108 @@ var questionRequest = function() {
 // for the results to return and so that it's not looking at an empty array
 // we'll need to link this to a questionCounter 
 
-console.log(questionArray)
+   
+    
+// initialize select dropdowns
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+    });
+
+// initialize intructions 
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+  
+   
+// when there is a change to the select dropdowns record the selection
+var selectedCategory = document.querySelector("#category-menu").addEventListener("change", (event) => {
+  questionCategory = event.target.value 
+})
+
+var selectedNumber = document.querySelector("#question-number").addEventListener("change", (event) => {
+  questionNumber = event.target.value 
+})
+
+// start button event listener
+document.querySelector("#start-btn").addEventListener("click", function() {
+  console.log("click")
+  questionRequest(questionCategory,questionNumber)
+  console.log(questionCategory)
+  console.log(questionNumber)
+  questionRequest()
+  
 var test = function() {
    {        console.log(questionArray[questionCounter].question)
             console.log(questionArray[questionCounter].answer)
+            console.log(questionArray)
     }  
 }
-delayThis = setTimeout(test, 500);
+delayThis = setTimeout(test, 1000);
 
 
+})
 
-   // this function converts NinjaAPI categories to OpenTDB categories
-   var categoryConverter = function(questionCategory) {
-    switch(questionCategory) {
-    case "general":
-    categoryCounter = "9"    
-    break;
+// this function converts NinjaAPI categories to OpenTDB categories
+var categoryConverter = function(questionCategory) {
+  switch(questionCategory) {
+  case "random":
+  categoryCounter = ""    
+  break;
+  
+  case "general":
+  categoryCounter = "9"    
+  break;
 
-    case "artliterature":
-    categoryCounter = "25"    
-    break;
+  case "artliterature":
+  categoryCounter = "25"    
+  break;
 
-    case "language":
-    categoryCounter = "10"
-    break;
-    
-    case "sciencenature":
-    categoryCounter = "17"
-    break;
+  case "language":
+  categoryCounter = "10"
+  break;
+  
+  case "sciencenature":
+  categoryCounter = "17"
+  break;
 
-    case "peopleplaces":
-    categoryCounter = "26"
-    break;
+  case "peopleplaces":
+  categoryCounter = "26"
+  break;
 
-    case "geography":
-    categoryCounter = "22"
-    break;
+  case "geography":
+  categoryCounter = "22"
+  break;
 
-    case "historyholidays":
-    categoryCounter = "23"
-    break;
+  case "historyholidays":
+  categoryCounter = "23"
+  break;
 
-    case "entertainment":
-    categoryCounter = "14"
-    break;
+  case "entertainment":
+  categoryCounter = "14"
+  break;
 
-    case "toysgames":
-    categoryCounter = "16"
-    break;
+  case "toysgames":
+  categoryCounter = "16"
+  break;
 
-    case "music":
-    categoryCounter = "12"
-    break;
+  case "music":
+  categoryCounter = "12"
+  break;
 
-    case "religionmythology":
-    categoryCounter = "20"
-    break;
+  case "religionmythology":
+  categoryCounter = "20"
+  break;
 
-    case "sportsliesure":
-    categoryCounter = "21"
-    break;         
+  case "sportsliesure":
+  categoryCounter = "21"
+  break;         
 
-    default: console.log("no category")
-    };
+  default: console.log("no category")
+  };
 }
 
 var pushToArray = function(dataObj) {
-    questionArray.push(dataObj)
+  questionArray.push(dataObj)
 
 }
-    questionRequest()
-    console.log()
-$('.dropdown-trigger').dropdown();
