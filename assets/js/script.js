@@ -1,4 +1,4 @@
-//
+
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
 var questionNumber 
 var questionCategory 
@@ -137,6 +137,7 @@ var test = function() {
    {        console.log(questionArray[questionCounter].question)
             console.log(questionArray[questionCounter].answer)
             console.log(questionArray)
+            questionArray = []
     }  
 }
 delayThis = setTimeout(test, 1000);
@@ -147,7 +148,7 @@ delayThis = setTimeout(test, 1000);
 // this function converts NinjaAPI categories to OpenTDB categories
 var categoryConverter = function(questionCategory) {
   switch(questionCategory) {
-  case "random":
+  case "":
   categoryCounter = ""    
   break;
   
