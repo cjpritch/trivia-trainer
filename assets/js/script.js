@@ -103,13 +103,31 @@ var questionRequest = function() {
 // we'll need to link this to a questionCounter 
 
 console.log(questionArray)
-var test = function() {
-   {        console.log(questionArray[questionCounter].question)
-            console.log(questionArray[questionCounter].answer)
-    }  
-}
-delayThis = setTimeout(test, 500);
+var displayQuestions = function () {
+    question = questionArray[questionCounter].question
+    answer = questionArray[questionCounter].answer
 
+
+
+     $("#Q").text(question);
+    setTimeout(() => {
+        console.log("Delayed for 6 seconds.");
+        $("#A").text(answer);
+    }, "6000")
+}
+// var test = function() {
+//    {        console.log(questionArray[questionCounter].question)
+//             console.log(questionArray[questionCounter].answer)
+//     }  
+// }
+// delayThis = setTimeout(displayQuestions, 500);
+//event listener for "lets play" button
+$("#next").on("click", function () {
+    //remove previous question
+    $("#Q").text("");
+    $("#A").text("");
+    displayQuestions();
+})
 
 
    // this function converts NinjaAPI categories to OpenTDB categories
@@ -173,27 +191,27 @@ var pushToArray = function(dataObj) {
 }
     questionRequest()
 
-    var displayQuestions = function () {
-        question = questionArray[questionCounter].question
-        answer = questionArray[questionCounter].answer
-
-
-
-         $("#Q").text(question);
-        setTimeout(() => {
-            console.log("Delayed for 10 seconds.");
-            $("#A").text(answer);
-        }, "6000")
-    }
-   // $("#startGame").on("click", function(){
-     //   displayQuestions();
-    //   });
-    $("#next").on("click", function () {
-        //remove previous question
-        $("#Q").text("");
-        $("#A").text("");
-        displayQuestions();
-    })
+   //event listener for start game button, which will create divs to 
+   //display questions and answers when the button is clicked, I commented
+   //out lines to add styling to the created elements
+   $("#startGame").on("click", function () {
+    for (i=0; i<questionNumber; i++){
+        console.log("createElement called");
+        const newQ = document.createElement("div");
+        newQ.setAttribute("id", "Q"+i);
+        // newQ.setAttribute("class", "question");
+        const newA = document.createElement("div");
+        newA.setAttribute("id", "A"+i);
+        //newA.setAttribute("class", "answer");
+        const newButton = document.createElement("button");
+        newButton.textContent = "Play Question";
+        newButton.setAttribute("class", "waves-effect waves-light btn");
+        newButton.setAttribute("id", "button"+i)
+        document.body.appendChild(newQ);
+        document.body.append(newA);
+        document.body.append(newButton);
+    }});
+   
     console.log()
 
 // initialize dropdowns
