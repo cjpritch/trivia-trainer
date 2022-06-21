@@ -10,7 +10,9 @@ var categoryCounter
 var questionCounter = 0
 var questionArray = []
 
+
 var questionRequest = function(questionCategory,questionNumber) {
+
 
     // loop through this function for each question
     for(i=0; i < questionNumber; i++){
@@ -101,6 +103,7 @@ var questionRequest = function(questionCategory,questionNumber) {
 // we'll call the function to display the question here. I had to add a delay so that there is time
 // for the results to return and so that it's not looking at an empty array
 // we'll need to link this to a questionCounter 
+
 
    
     
