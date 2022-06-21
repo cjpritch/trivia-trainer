@@ -173,12 +173,7 @@ var pushToArray = function(dataObj) {
 }
     questionRequest()
     console.log()
+<<<<<<< HEAD
 
 // initialize dropdowns
 $('.dropdown-trigger').dropdown();
-
-// initialize intructions 
-$(document).ready(function(){
-    $('.modal').modal();
-  });
-          
