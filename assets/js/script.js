@@ -121,13 +121,13 @@ var loadQuestion = function() {
 
   //create a p element to hold question then append to div
   var questionEl = document.createElement("p")
-  questionEl.classList.add("neonText","questionP")
+  questionEl.classList.add("questionP")
   questionEl.innerText = questionArray[questionCounter].question
   questionDisplay.appendChild(questionEl)
 
   //create a p element to hold answer then append to div
   var answerEl = document.createElement("p")
-  answerEl.classList.add("neonText", "questionP")
+  answerEl.classList.add("questionP")
   answerEl.innerText = questionArray[questionCounter].answer
   answerDisplay.appendChild(answerEl)
 
