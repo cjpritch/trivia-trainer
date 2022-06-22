@@ -1,16 +1,27 @@
-//
+
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
-var questionNumber = 50
-var questionCategory = "sciencenature"
+var questionNumber 
+var questionCategory 
+var startCard = document.querySelector(".start-card")
+var answerCard = document.querySelector("#display-area")
+var seeAnswerBtn = document.querySelector("#see-answer")
+var seeAnswer = document.querySelector(".answer-btn-toggle")
+var nextBtn = document.querySelector(".next-btn-toggle")
+var questionDisplay = document.querySelector(".question")
+var answerDisplay = document.querySelector(".answer")
 
 // create global variables to be used below
 var question
 var answer
 var categoryCounter
 var questionCounter = 0
+var clickCounter = 2
 var questionArray = []
 
-var questionRequest = function() {
+var displayArea = document.querySelector("#display-area")
+
+var questionRequest = function(questionCategory,questionNumber) {
+
 
     // loop through this function for each question
     for(i=0; i < questionNumber; i++){
@@ -73,7 +84,7 @@ var questionRequest = function() {
 
         answer = answer.replaceAll(/&amp;;/g,"&")
         question = question.replaceAll(/&amp;;/g,"&")
-
+       
         answer = answer.replaceAll(/&#039;/g,"'")
         question = question.replaceAll(/&#039;/g,"'")
 
@@ -97,80 +108,191 @@ var questionRequest = function() {
   }  
 }   
 
+var loadQuestion = function() {
 
-// we'll call the function to display the question here. I had to add a delay so that there is time
-// for the results to return and so that it's not looking at an empty array
-// we'll need to link this to a questionCounter 
+  // remove previous question
 
-console.log(questionArray)
-var test = function() {
-   {        console.log(questionArray[questionCounter].question)
-            console.log(questionArray[questionCounter].answer)
-    }  
+  while (answerDisplay.firstChild) {
+    answerDisplay.removeChild(answerDisplay.firstChild)
+  }
+  while (questionDisplay.firstChild) {
+  questionDisplay.removeChild(questionDisplay.firstChild)
+  }
+
+  //create a p element to hold question then append to div
+  var questionEl = document.createElement("p")
+  questionEl.classList.add("questionP")
+  questionEl.innerText = questionArray[questionCounter].question
+  questionDisplay.appendChild(questionEl)
+
+  //create a p element to hold answer then append to div
+  var answerEl = document.createElement("p")
+  answerEl.classList.add("questionP")
+  answerEl.innerText = questionArray[questionCounter].answer
+  answerDisplay.appendChild(answerEl)
+
+
 }
-delayThis = setTimeout(test, 500);
+
+// initialize select dropdowns
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+    });
+
+// initialize intructions 
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+  
+   
+// when there is a change to the select dropdowns record the selection
+var selectedCategory = document.querySelector("#category-menu").addEventListener("change", (event) => {
+  questionCategory = event.target.value 
+  console.log(questionCategory)
+})
+
+var selectedNumber = document.querySelector("#question-number").addEventListener("change", (event) => {
+  questionNumber = event.target.value 
+  console.log(questionNumber)
+})
+
+// start button event listener
+document.querySelector("#start-btn").addEventListener("click", function() {
+  if(!questionNumber) {
+     return;
+  }
+  answerDisplay.classList.add("hide")
+  nextBtn.classList.add("hide")
+  seeAnswer.classList.remove("hide")
+  startCard.classList.add("hide")
+  answerCard.classList.remove("hide")
+  questionRequest(questionCategory,questionNumber)  
+  questionRequest()
+  setTimeout(loadQuestion,1000)
+
+ })
 
 
+ // Answer button event listener
 
-   // this function converts NinjaAPI categories to OpenTDB categories
-   var categoryConverter = function(questionCategory) {
-    switch(questionCategory) {
-    case "general":
-    categoryCounter = "9"    
-    break;
+seeAnswerBtn.addEventListener("click", function() {
 
-    case "artliterature":
-    categoryCounter = "25"    
-    break;
+  if(questionCounter >= questionArray.length)
+  {
+    resetGame()
+  }  
+  modulus = (clickCounter % 2)
+  console.log("modulus "+ modulus)
+  console.log(clickCounter)
+  if(modulus == 1) {
+    answerDisplay.classList.add("hide")    
+    loadQuestion()
+    nextBtn.classList.add("hide") 
+    seeAnswer.classList.remove("hide")  
+    }
+  if(modulus == 0){
+  answerDisplay.classList.remove("hide")
+  nextBtn.classList.remove("hide") 
+  seeAnswer.classList.add("hide")
 
-    case "language":
-    categoryCounter = "10"
-    break;
-    
-    case "sciencenature":
-    categoryCounter = "17"
-    break;
+  questionCounter++ 
+  }
+  clickCounter++
+})
 
-    case "peopleplaces":
-    categoryCounter = "26"
-    break;
+var resetGame = function() {
+  clickCounter = 2
+  questionCounter = 0
+  startCard.classList.remove("hide")
+  answerCard.classList.add("hide")
+  while (answerDisplay.firstChild) {
+    answerDisplay.removeChild(answerDisplay.firstChild)
+  }
+  while (questionDisplay.firstChild) {
+  questionDisplay.removeChild(questionDisplay.firstChild)
+  }    
+  questionArray = []
+}
 
-    case "geography":
-    categoryCounter = "22"
-    break;
+// this function converts NinjaAPI categories to OpenTDB categories
+var categoryConverter = function(questionCategory) {
+  switch(questionCategory) {
+  case "":
+  categoryCounter = ""    
+  break;
+  
+  case "general":
+  categoryCounter = "9"    
+  break;
 
-    case "historyholidays":
-    categoryCounter = "23"
-    break;
+  case "artliterature":
+  categoryCounter = "25"    
+  break;
 
-    case "entertainment":
-    categoryCounter = "14"
-    break;
+  case "language":
+  categoryCounter = "10"
+  break;
+  
+  case "sciencenature":
+  categoryCounter = "17"
+  break;
 
-    case "toysgames":
-    categoryCounter = "16"
-    break;
+  case "peopleplaces":
+  categoryCounter = "26"
+  break;
 
-    case "music":
-    categoryCounter = "12"
-    break;
+  case "geography":
+  categoryCounter = "22"
+  break;
 
-    case "religionmythology":
-    categoryCounter = "20"
-    break;
+  case "historyholidays":
+  categoryCounter = "23"
+  break;
 
-    case "sportsliesure":
-    categoryCounter = "21"
-    break;         
+  case "entertainment":
+  categoryCounter = "14"
+  break;
 
-    default: console.log("no category")
-    };
+  case "toysgames":
+  categoryCounter = "16"
+  break;
+
+  case "music":
+  categoryCounter = "12"
+  break;
+
+  case "religionmythology":
+  categoryCounter = "20"
+  break;
+
+  case "sportsliesure":
+  categoryCounter = "21"
+  break;         
+
+  default: console.log("no category")
+  };
 }
 
 var pushToArray = function(dataObj) {
-    questionArray.push(dataObj)
+  questionArray.push(dataObj)
 
 }
-    questionRequest()
-    console.log()
-$('.dropdown-trigger').dropdown();
+  questionRequest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
