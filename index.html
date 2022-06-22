@@ -7,24 +7,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Open+Sans:wght@400;700&family=Staatliches&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Trivia Trainer</title>
+    <title class="neonText">Trivia Trainer</title>
 </head>
 <body>
 <header class="nav-wrapper">
-    <h1 class="brand-logo center">Trivia Trainer</h1>
+    <h1 class="brand-logo center neonText">Trivia Trainer</h1>
 </header>
 
 <div class="container">
 <!--Selections area-->
-  <div class="row">
-    <div class="col s4">
-     <div class="input-field card-panel z-depth-5">
+  <div class="row start-card">
+     <div class="input-field card-panel grey darken-4 z-depth-5">
         <!--Question Categories-->
         <div class="input-field col s12">
+          <div class="label-div">
+          <label class="neonText">Categories</label>
+          </div>
             <select id="category-menu">
-              <option value="" disabled selected>Choose your option</option>
+              <option value="" disabled selected>Choose Category</option>
               <option value="">Random</option>
               <option value="general">General</option>
               <option value="artliterature">Art/Literature</option>
@@ -38,30 +40,33 @@
               <option value="music">Music</option>
               <option value="religionmythology">Religion/Mythology</option>
               <option value="sportsleisure">Sports/Leisure</option>
-
-            </select>
-            <label>Categories</label>
+            </select>           
           </div>
         <!--Question Amounts-->
           <div class="input-field col s12">
+            <div class="label-div">
+            <label class="neonText">Number of Questions</label>
+            </div>
             <select id="question-number">
-              <option value="" disabled selected>Choose your option</option>
+              <option value="" disabled selected>Choose Number</option>
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="30">30</option>
               <option value="40">40</option>
               <option value="50">50</option>
-            </select>
-            <label>Question Amount</label>
+            </select>            
           </div>
 
-        <a class="waves-effect waves-light btn z-depth-5" id="start-btn">Start Training!</a>
-
-        <br>
-        <a class="waves-effect waves-light btn modal-trigger z-depth-5" href="#modal1">Need Instructions?</a>
+          <div class="btn-div">
+            <a class="waves-effect waves-light btn neon-btns z-depth-5 start-btn" id="start-btn">Start Training!</a>
+            </div>
+            <div class="btn-div">        
+            <a class="waves-effect waves-light btn neon-btns modal-trigger z-depth-5 start-btn" href="#modal1">Need Instructions?</a>
+            </div>
      </div>
  </div>
 
+ 
    <!-- Instructions Modal -->
    <div id="modal1" class="modal">
     <div class="modal-content">
@@ -73,8 +78,15 @@
     </div>
   </div>
   <!--Where Q's & A's will appear-->
-  <div id="display-area">
-  </div>
+    <div class="row hide" id="display-area">    
+    <div class="question"></div> 
+    <div class="answer hide"></div> 
+    <div class="btn-div">
+      <a class="waves-effect waves-light btn z-depth-5 next-question neon-btns" id="see-answer">
+        <div class="answer-btn-toggle">See Answer!</div>
+        <div class="next-btn-toggle hide">Next Question!</div></a>
+      </div>
+    
 
 </div>
 </div>

@@ -2,12 +2,20 @@
 // these two variables are placeholders for the information coming back from the dropdowns (category & # of questions)
 var questionNumber 
 var questionCategory 
+var startCard = document.querySelector(".start-card")
+var answerCard = document.querySelector("#display-area")
+var seeAnswerBtn = document.querySelector("#see-answer")
+var seeAnswer = document.querySelector(".answer-btn-toggle")
+var nextBtn = document.querySelector(".next-btn-toggle")
+var questionDisplay = document.querySelector(".question")
+var answerDisplay = document.querySelector(".answer")
 
 // create global variables to be used below
 var question
 var answer
 var categoryCounter
 var questionCounter = 0
+var clickCounter = 2
 var questionArray = []
 
 var displayArea = document.querySelector("#display-area")
@@ -76,7 +84,7 @@ var questionRequest = function(questionCategory,questionNumber) {
 
         answer = answer.replaceAll(/&amp;;/g,"&")
         question = question.replaceAll(/&amp;;/g,"&")
-
+       
         answer = answer.replaceAll(/&#039;/g,"'")
         question = question.replaceAll(/&#039;/g,"'")
 
@@ -100,26 +108,32 @@ var questionRequest = function(questionCategory,questionNumber) {
   }  
 }   
 
+var loadQuestion = function() {
 
-// we'll call the function to display the question here. I had to add a delay so that there is time
-// for the results to return and so that it's not looking at an empty array
-// we'll need to link this to a questionCounter 
-var displayQuestions = function () {
-  question = questionArray[questionCounter].question
-  answer = questionArray[questionCounter].answer
-   $("#Q").text(question);
-  setTimeout(() => {
-      console.log("Delayed for 6 seconds.");
-      $("#A").text(answer);
-  }, "6000")
+  // remove previous question
+
+  while (answerDisplay.firstChild) {
+    answerDisplay.removeChild(answerDisplay.firstChild)
+  }
+  while (questionDisplay.firstChild) {
+  questionDisplay.removeChild(questionDisplay.firstChild)
+  }
+
+  //create a p element to hold question then append to div
+  var questionEl = document.createElement("p")
+  questionEl.classList.add("neonText","questionP")
+  questionEl.innerText = questionArray[questionCounter].question
+  questionDisplay.appendChild(questionEl)
+
+  //create a p element to hold answer then append to div
+  var answerEl = document.createElement("p")
+  answerEl.classList.add("neonText", "questionP")
+  answerEl.innerText = questionArray[questionCounter].answer
+  answerDisplay.appendChild(answerEl)
+
+
 }
-//event listener for "lets play" button
-$("#next").on("click", function () {
-  //remove previous question
-  $("#Q").text("");
-  $("#A").text("");
-  displayQuestions();
-})   
+
 // initialize select dropdowns
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
@@ -135,49 +149,71 @@ $(document).ready(function(){
 // when there is a change to the select dropdowns record the selection
 var selectedCategory = document.querySelector("#category-menu").addEventListener("change", (event) => {
   questionCategory = event.target.value 
+  console.log(questionCategory)
 })
 
 var selectedNumber = document.querySelector("#question-number").addEventListener("change", (event) => {
   questionNumber = event.target.value 
+  console.log(questionNumber)
 })
 
 // start button event listener
 document.querySelector("#start-btn").addEventListener("click", function() {
-  console.log("click")
-  questionRequest(questionCategory,questionNumber)
-  console.log(questionCategory)
-  console.log(questionNumber)
+  if(!questionNumber) {
+     return;
+  }
+  answerDisplay.classList.add("hide")
+  nextBtn.classList.add("hide")
+  seeAnswer.classList.remove("hide")
+  startCard.classList.add("hide")
+  answerCard.classList.remove("hide")
+  questionRequest(questionCategory,questionNumber)  
   questionRequest()
+  setTimeout(loadQuestion,1000)
 
-  
-//event listener for start game button, which will create divs to
- //display questions and answers when the button is clicked, I commented
- //out lines to add styling to the created elements
- 
+ })
 
 
+ // Answer button event listener
 
- var createElements = function() {
-  for (i=0; i<questionNumber; i++){
-      console.log("createElement called");
-      const newQ = document.createElement("div");
-      newQ.setAttribute("id", "Q"+i);
-      // newQ.setAttribute("class", "question");
-      const newA = document.createElement("div");
-      newA.setAttribute("id", "A"+i);
-      //newA.setAttribute("class", "answer");
-      const newButton = document.createElement("button");
-      newButton.textContent = "Play Question";
-      newButton.setAttribute("class", "waves-effect waves-light btn");
-      newButton.setAttribute("id", "button"+i)
-      displayArea.appendChild(newQ);
-      displayArea.appendChild(newA);
-      document.body.appendChild(newButton);
-  }};
-  
-  delayThis = setTimeout(createElements, 1000);
+seeAnswerBtn.addEventListener("click", function() {
 
+  if(questionCounter >= questionArray.length)
+  {
+    resetGame()
+  }  
+  modulus = (clickCounter % 2)
+  console.log("modulus "+ modulus)
+  console.log(clickCounter)
+  if(modulus == 1) {
+    answerDisplay.classList.add("hide")    
+    loadQuestion()
+    nextBtn.classList.add("hide") 
+    seeAnswer.classList.remove("hide")  
+    }
+  if(modulus == 0){
+  answerDisplay.classList.remove("hide")
+  nextBtn.classList.remove("hide") 
+  seeAnswer.classList.add("hide")
+
+  questionCounter++ 
+  }
+  clickCounter++
 })
+
+var resetGame = function() {
+  clickCounter = 2
+  questionCounter = 0
+  startCard.classList.remove("hide")
+  answerCard.classList.add("hide")
+  while (answerDisplay.firstChild) {
+    answerDisplay.removeChild(answerDisplay.firstChild)
+  }
+  while (questionDisplay.firstChild) {
+  questionDisplay.removeChild(questionDisplay.firstChild)
+  }    
+  questionArray = []
+}
 
 // this function converts NinjaAPI categories to OpenTDB categories
 var categoryConverter = function(questionCategory) {
