@@ -8,3 +8,8 @@ Trivia Trainer is an application that generates randomized trivia questions for 
 
 ## Deployed Application
 https://cjpritch.github.io/trivia-trainer/
+
+## Contributers 
+<a href="https://github.com/cjpritch/trivia-trainer/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cjpritch/trivia-trainer" />
+</a>
