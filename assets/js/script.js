@@ -10,6 +10,7 @@ var categoryCounter
 var questionCounter = 0
 var questionArray = []
 
+var displayArea = document.querySelector("#display-area")
 
 var questionRequest = function(questionCategory,questionNumber) {
 
@@ -103,141 +104,32 @@ var questionRequest = function(questionCategory,questionNumber) {
 // we'll call the function to display the question here. I had to add a delay so that there is time
 // for the results to return and so that it's not looking at an empty array
 // we'll need to link this to a questionCounter 
-
-<<<<<<< HEAD
-console.log(questionArray)
 var displayQuestions = function () {
-    question = questionArray[questionCounter].question
-    answer = questionArray[questionCounter].answer
-
-
-
-     $("#Q").text(question);
-    setTimeout(() => {
-        console.log("Delayed for 6 seconds.");
-        $("#A").text(answer);
-    }, "6000")
+  question = questionArray[questionCounter].question
+  answer = questionArray[questionCounter].answer
+   $("#Q").text(question);
+  setTimeout(() => {
+      console.log("Delayed for 6 seconds.");
+      $("#A").text(answer);
+  }, "6000")
 }
-// var test = function() {
-//    {        console.log(questionArray[questionCounter].question)
-//             console.log(questionArray[questionCounter].answer)
-//     }  
-// }
-// delayThis = setTimeout(displayQuestions, 500);
 //event listener for "lets play" button
 $("#next").on("click", function () {
-    //remove previous question
-    $("#Q").text("");
-    $("#A").text("");
-    displayQuestions();
-})
-
-
-   // this function converts NinjaAPI categories to OpenTDB categories
-   var categoryConverter = function(questionCategory) {
-    switch(questionCategory) {
-    case "general":
-    categoryCounter = "9"    
-    break;
-
-    case "artliterature":
-    categoryCounter = "25"    
-    break;
-
-    case "language":
-    categoryCounter = "10"
-    break;
-    
-    case "sciencenature":
-    categoryCounter = "17"
-    break;
-
-    case "peopleplaces":
-    categoryCounter = "26"
-    break;
-
-    case "geography":
-    categoryCounter = "22"
-    break;
-
-    case "historyholidays":
-    categoryCounter = "23"
-    break;
-
-    case "entertainment":
-    categoryCounter = "14"
-    break;
-
-    case "toysgames":
-    categoryCounter = "16"
-    break;
-
-    case "music":
-    categoryCounter = "12"
-    break;
-
-    case "religionmythology":
-    categoryCounter = "20"
-    break;
-
-    case "sportsliesure":
-    categoryCounter = "21"
-    break;         
-
-    default: console.log("no category")
-    };
-}
-
-var pushToArray = function(dataObj) {
-    questionArray.push(dataObj)
-
-}
-    questionRequest()
-
-   //event listener for start game button, which will create divs to 
-   //display questions and answers when the button is clicked, I commented
-   //out lines to add styling to the created elements
-   $("#startGame").on("click", function () {
-    for (i=0; i<questionNumber; i++){
-        console.log("createElement called");
-        const newQ = document.createElement("div");
-        newQ.setAttribute("id", "Q"+i);
-        // newQ.setAttribute("class", "question");
-        const newA = document.createElement("div");
-        newA.setAttribute("id", "A"+i);
-        //newA.setAttribute("class", "answer");
-        const newButton = document.createElement("button");
-        newButton.textContent = "Play Question";
-        newButton.setAttribute("class", "waves-effect waves-light btn");
-        newButton.setAttribute("id", "button"+i)
-        document.body.appendChild(newQ);
-        document.body.append(newA);
-        document.body.append(newButton);
-    }});
-   
-    console.log()
-
-
-// initialize dropdowns
-$('.dropdown-trigger').dropdown();
-=======
-
-   
-    
+  //remove previous question
+  $("#Q").text("");
+  $("#A").text("");
+  displayQuestions();
+})   
 // initialize select dropdowns
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems);
     });
->>>>>>> 5e89030561e3d344df2fa46aa9dd1c255a728576
 
 // initialize intructions 
 $(document).ready(function(){
     $('.modal').modal();
   });
-<<<<<<< HEAD
-          
-=======
   
    
 // when there is a change to the select dropdowns record the selection
@@ -256,16 +148,34 @@ document.querySelector("#start-btn").addEventListener("click", function() {
   console.log(questionCategory)
   console.log(questionNumber)
   questionRequest()
-  
-var test = function() {
-   {        console.log(questionArray[questionCounter].question)
-            console.log(questionArray[questionCounter].answer)
-            console.log(questionArray)
-            questionArray = []
-    }  
-}
-delayThis = setTimeout(test, 1000);
 
+  
+//event listener for start game button, which will create divs to
+ //display questions and answers when the button is clicked, I commented
+ //out lines to add styling to the created elements
+ 
+
+
+
+ var createElements = function() {
+  for (i=0; i<questionNumber; i++){
+      console.log("createElement called");
+      const newQ = document.createElement("div");
+      newQ.setAttribute("id", "Q"+i);
+      // newQ.setAttribute("class", "question");
+      const newA = document.createElement("div");
+      newA.setAttribute("id", "A"+i);
+      //newA.setAttribute("class", "answer");
+      const newButton = document.createElement("button");
+      newButton.textContent = "Play Question";
+      newButton.setAttribute("class", "waves-effect waves-light btn");
+      newButton.setAttribute("id", "button"+i)
+      displayArea.appendChild(newQ);
+      displayArea.appendChild(newA);
+      document.body.appendChild(newButton);
+  }};
+  
+  delayThis = setTimeout(createElements, 1000);
 
 })
 
@@ -332,4 +242,21 @@ var pushToArray = function(dataObj) {
   questionArray.push(dataObj)
 
 }
->>>>>>> 5e89030561e3d344df2fa46aa9dd1c255a728576
+  questionRequest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
