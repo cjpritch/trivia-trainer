@@ -7,4 +7,4 @@ Trivia Trainer is an application that generates randomized trivia questions for 
 Screenshot will be placed here
 
 ## Deployed Application
-(https://cjpritch.github.io/trivia-trainer/)
+https://cjpritch.github.io/trivia-trainer/
