@@ -8,9 +8,9 @@ Trivia Trainer is an application that generates randomized trivia questions for 
 ![image](./assets/images/screencapture-file-Users-carlypritchard-Documents-trivia-trainer-index-html-2022-06-22-16_30_45.png)
 
 
-## [Deployed Application](https://cjpritch.github.io/trivia-trainer/)
+## [Link to Deployed Application](https://cjpritch.github.io/trivia-trainer/)
 
 ## Contributers 
-[Kamadulski999](https://github.com/Kamadulski999)
-[cjpritch](https://github.com/cjpritch?tab=repositories)
+[Kamadulski999](https://github.com/Kamadulski999)<br/>
+[cjpritch](https://github.com/cjpritch?tab=repositories)<br/>
 [PBranch243](https://github.com/PBranch243)
