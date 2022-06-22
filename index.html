@@ -4,83 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Trivia Trainer</title>
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <title>Timer</title>
 </head>
 <body>
-<header class="nav-wrapper">
-    <h1 class="brand-logo center">Trivia Trainer</h1>
-</header>
 
-<div class="container">
-<!--Selections area-->
-  <div class="row">
-    <div class="col s4">
-     <div class="input-field card-panel z-depth-5">
-        <!--Question Categories-->
-        <div class="input-field col s12">
-            <select id="category-menu">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="">Random</option>
-              <option value="general">General</option>
-              <option value="artliterature">Art/Literature</option>
-              <option value="language">Language</option>
-              <option value="sciencenature">Science/Nature</option>
-              <option value="peopleplaces">People/Places</option>
-              <option value="geography">Geography</option>
-              <option value="historyholidays">History/Holidays</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="toysgames">Toys/Games</option>
-              <option value="music">Music</option>
-              <option value="religionmythology">Religion/Mythology</option>
-              <option value="sportsleisure">Sports/Leisure</option>
+<h1> INTERVAL TIMER</h1>
 
-            </select>
-            <label>Categories</label>
-          </div>
-        <!--Question Amounts-->
-          <div class="input-field col s12">
-            <select id="question-number">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-            </select>
-            <label>Question Amount</label>
-          </div>
+<p id="timer">
+timer goes here
 
-        <a class="waves-effect waves-light btn z-depth-5" id="start-btn">Start Training!</a>
 
-        <br>
-        <a class="waves-effect waves-light btn modal-trigger z-depth-5" href="#modal1">Need Instructions?</a>
-     </div>
- </div>
+</p>
 
-   <!-- Instructions Modal -->
-   <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Instructions</h4>
-      <p>Tired of being in last place at trivia night? Just wanting to learn some fun facts to breakout during awkward conversations? Welcome to Trivia Trainer! Start by selecting your category and number of questions, then click "Start Training"!</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Continue</a>
-    </div>
-  </div>
-  <!--Where Q's & A's will appear-->
-  <div id="display-area">
-  </div>
 
-</div>
-</div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+
+
+<script src=./assets/js/script.js></script>   
 </body>
 </html>
