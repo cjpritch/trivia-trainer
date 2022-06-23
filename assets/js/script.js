@@ -9,6 +9,7 @@ var seeAnswer = document.querySelector(".answer-btn-toggle")
 var nextBtn = document.querySelector(".next-btn-toggle")
 var questionDisplay = document.querySelector(".question")
 var answerDisplay = document.querySelector(".answer")
+var buttonDiv = document.querySelector("#button-div")
 
 // create global variables to be used below
 var question
@@ -93,15 +94,13 @@ var questionRequest = function(questionCategory,questionNumber) {
             question: question,
             answer: answer
         }    
-        pushToArray(dataObj)       
-          
-        // console.log("OpenTDB")
-        // console.log("Question: " + question)
-        // console.log("Answer: " + answer)                         
+        pushToArray(dataObj)     
+                                     
         })
 
         .catch(function(error) {
-            console.log("Houston we have a problem")            
+            console.log("Houston we have a problem") 
+            resetGame()           
         })
     });                            
    };    
@@ -109,6 +108,8 @@ var questionRequest = function(questionCategory,questionNumber) {
 }   
 
 var loadQuestion = function() {
+  // display See Answer Button
+  buttonDiv.classList.remove("hide")
 
   // remove previous question
 
@@ -121,13 +122,13 @@ var loadQuestion = function() {
 
   //create a p element to hold question then append to div
   var questionEl = document.createElement("p")
-  questionEl.classList.add("questionP")
+  questionEl.classList.add("neonText","questionP")
   questionEl.innerText = questionArray[questionCounter].question
   questionDisplay.appendChild(questionEl)
 
   //create a p element to hold answer then append to div
   var answerEl = document.createElement("p")
-  answerEl.classList.add("questionP")
+  answerEl.classList.add("neonText", "questionP", "answerP", "hide")
   answerEl.innerText = questionArray[questionCounter].answer
   answerDisplay.appendChild(answerEl)
 
@@ -162,7 +163,6 @@ document.querySelector("#start-btn").addEventListener("click", function() {
   if(!questionNumber) {
      return;
   }
-  answerDisplay.classList.add("hide")
   nextBtn.classList.add("hide")
   seeAnswer.classList.remove("hide")
   startCard.classList.add("hide")
@@ -177,6 +177,8 @@ document.querySelector("#start-btn").addEventListener("click", function() {
  // Answer button event listener
 
 seeAnswerBtn.addEventListener("click", function() {
+  var answerP = document.querySelector(".answerP")
+  answerP.classList.remove("hide")
 
   if(questionCounter >= questionArray.length)
   {
@@ -185,14 +187,12 @@ seeAnswerBtn.addEventListener("click", function() {
   modulus = (clickCounter % 2)
   console.log("modulus "+ modulus)
   console.log(clickCounter)
-  if(modulus == 1) {
-    answerDisplay.classList.add("hide")    
+  if(modulus == 1) {      
     loadQuestion()
     nextBtn.classList.add("hide") 
     seeAnswer.classList.remove("hide")  
     }
-  if(modulus == 0){
-  answerDisplay.classList.remove("hide")
+  if(modulus == 0){  
   nextBtn.classList.remove("hide") 
   seeAnswer.classList.add("hide")
 
@@ -205,7 +205,7 @@ var resetGame = function() {
   clickCounter = 2
   questionCounter = 0
   startCard.classList.remove("hide")
-  answerCard.classList.add("hide")
+  answerCard.classList.add("hide")  
   while (answerDisplay.firstChild) {
     answerDisplay.removeChild(answerDisplay.firstChild)
   }
