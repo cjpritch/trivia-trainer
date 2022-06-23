@@ -81,9 +81,10 @@ label {
 }
 
 .questionP {
-    font-size: 2em;
+    font-size: 4vh;
     line-height: 1.5;
 }
+
 .answer {
     margin-top: 3vh;
 }
@@ -106,3 +107,18 @@ label {
  input {
     color: #0fa; 
 }
+
+@media only screen and (max-width: 500px) {
+    .questionP {
+      font-size: 3vh;
+    }
+    h1{
+        margin: auto1vh;
+    }
+    .row {
+        padding-top: 0;
+    }
+    html {
+        background: black;
+    }
+  }
