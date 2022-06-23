@@ -108,9 +108,10 @@ label {
     color: #0fa; 
 }
 
-@media only screen and (max-width: 566px) {
+@media only screen and (max-width: 585px) {
     .questionP {
       font-size: 3vh;
+      padding: 1vh 0;
     }
     h1{
         margin: 2vh;
@@ -119,6 +120,16 @@ label {
         padding-top: 0;
     }
     html {
-        background: black;
+        background: black;        
     }
+
+    .question {
+        padding-bottom: 10vh;
+    }
+
+    .answer {
+        padding-top: 10vh;
+    }
+    
   }
+
