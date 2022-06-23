@@ -108,7 +108,7 @@ label {
     color: #0fa; 
 }
 
-@media only screen and (max-width: 585px) {
+@media only screen and (max-width: 566px) {
     .questionP {
       font-size: 3vh;
     }
