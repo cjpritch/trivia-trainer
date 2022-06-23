@@ -204,6 +204,7 @@ seeAnswerBtn.addEventListener("click", function() {
 var resetGame = function() {
   clickCounter = 2
   questionCounter = 0
+  buttonDiv.classList.add("hide")  
   startCard.classList.remove("hide")
   answerCard.classList.add("hide")  
   while (answerDisplay.firstChild) {
