@@ -6,7 +6,7 @@ h1 {
     color: rgb(122, 191, 239);
     font-family: 'Fuzzy Bubbles', cursive;
     font-size: 6em;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 label {
@@ -63,7 +63,7 @@ label {
     padding-left: 3px;
     margin-left: 2.85vw;
     margin-bottom: 2vw;
-    height: 20vh;
+    height: 15vh;
     width:90%;
     color: white
 }
