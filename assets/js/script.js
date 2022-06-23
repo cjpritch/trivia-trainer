@@ -52,11 +52,7 @@ var questionRequest = function(questionCategory,questionNumber) {
         }    
         
         pushToArray(dataObj)     
-       
-        // console.log("NINJA")
-        // console.log("Question: " + question)
-        // console.log("Answer: " + answer)    
-                 
+     
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
@@ -150,13 +146,11 @@ $(document).ready(function(){
 // when there is a change to the select dropdowns record the selection
 var selectedCategory = document.querySelector("#category-menu").addEventListener("change", (event) => {
   questionCategory = event.target.value 
-  console.log(questionCategory)
-})
+  })
 
 var selectedNumber = document.querySelector("#question-number").addEventListener("change", (event) => {
   questionNumber = event.target.value 
-  console.log(questionNumber)
-})
+  })
 
 // start button event listener
 document.querySelector("#start-btn").addEventListener("click", function() {
@@ -168,7 +162,6 @@ document.querySelector("#start-btn").addEventListener("click", function() {
   startCard.classList.add("hide")
   answerCard.classList.remove("hide")
   questionRequest(questionCategory,questionNumber)  
-  questionRequest()
   setTimeout(loadQuestion,1000)
 
  })
@@ -184,9 +177,9 @@ seeAnswerBtn.addEventListener("click", function() {
   {
     resetGame()
   }  
+  // modulus alternates between 0 and 1 to mark state of button as either "See Answer" or "Next Question"
+    
   modulus = (clickCounter % 2)
-  console.log("modulus "+ modulus)
-  console.log(clickCounter)
   if(modulus == 1) {      
     loadQuestion()
     nextBtn.classList.add("hide") 
